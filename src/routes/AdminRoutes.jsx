@@ -4,6 +4,7 @@ import SignUp from '../components/pages/admin/signup/SignUp'
 import Login from '../components/login/Login'
 import Home from '../components/pages/admin/home/Home'
 import RequireAdminAuth from '../Auth/RequireAdminAuth'
+import NewsFeed from '../components/pages/user/newsFeed/NewsFeed'
 
 
 function AdminRoutes() {
@@ -18,6 +19,7 @@ function AdminRoutes() {
 
       <Route element={<RequireAdminAuth logged='true' />}>
         <Route element={<Home></Home>} path='/home'></Route>
+        <Route element={<NewsFeed admin={true}></NewsFeed>} path='/newsFeed'></Route>
       </Route>
       
     </Routes>

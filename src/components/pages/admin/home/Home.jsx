@@ -5,6 +5,7 @@ import './Home.css'
 import Navbar from '../../../navbar/Navbar'
 import Table from '../../../table/Tables';
 import MyModal from '../../../modal/Modal';
+import Footer from '../../../footer/Footer';
 
 function Home() {
   const token = localStorage.getItem('adminToken');
@@ -99,18 +100,19 @@ function Home() {
     callBack()
   }, [render, verified])
   return (
-    <div>
+    <div >
       <Navbar lists={['Dashboard', 'Newsfeed', 'Logout']}></Navbar>
       <h1>Users</h1>
       <div style={{ textAlign: 'center' }}><button className='buttonVerified' onClick={() => { setVerified(true) }}>Verified</button>
         <button className='buttonVerified' onClick={() => { setVerified(false) }}>Not Verified</button>
       </div>
-      <div style={{ padding: '2em', overflow: 'auto' }}>{data ? <Table columns={columns} data={data}></Table> : ''}</div>
+      <div style={{ padding: '2em', overflow: 'auto',minHeight:'100vh' }}>{data ? <Table columns={columns} data={data}></Table> : ''}</div>
       <MyModal
         showModal={showModal}
         closeModal={closeModal}
         handleSaveChanges={handleSaveChanges}
       />
+      <Footer></Footer>
     </div>
   )
 }

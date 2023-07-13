@@ -3,15 +3,22 @@ import Navbar from '../../../navbar/Navbar'
 import Footer from '../../../footer/Footer'
 import './NewsFeed.css'
 import createInstance from '../../../../constants/axiosApi';
-import {AiFillLike} from 'react-icons/ai'
-function NewsFeed() {
+import { AiFillLike } from 'react-icons/ai'
+import { MdDelete } from 'react-icons/md';
+import MyModal from '../../../modal/Modal';
+
+function NewsFeed({ admin }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [caption, setCaption] = useState('');
     const [image, setImage] = useState([]);
     const [posts, setPosts] = useState([]);
     const [updated, setUpdated] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [liked,setLiked] = useState(false)
+    const [liked, setLiked] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [value, setValue] = useState();
+
+
 
 
     const postsPerPage = 20;
@@ -26,6 +33,8 @@ function NewsFeed() {
 
 
     const token = localStorage.getItem('token')
+    const adminToken = localStorage.getItem('adminToken')
+
 
     const handleCaptionChange = (event) => {
         setCaption(event.target.value);
@@ -44,7 +53,7 @@ function NewsFeed() {
         formData.append('caption', caption);
         formData.append('image', image)
         axiosInstance
-            .post('/newsField', formData
+            .post('/newsFeed', formData
                 , {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -70,26 +79,61 @@ function NewsFeed() {
         setCaption('');
         setImage('');
     };
-    const handleLike = (id) => {
-        setLiked(!liked)
-        console.log(id);
-     const axiosInstance = createInstance(token)
+    const handleLike = (id, index) => {
+        const updatedLiked = [...liked];
+        updatedLiked[index] = !updatedLiked[index];
+        setLiked(updatedLiked);
 
-     axiosInstance.patch('/newsFeed')
+        const axiosInstance = createInstance(token)
+        const likes = updatedLiked[index]
+        axiosInstance.patch('/newsFeed', { id, likes }).then((res) => {
+            // console.log(res);
+            setUpdated(!updated)
+        })
+    };
+    const openModals = (id) => {
+
+        setValue(id);
+        setShowModal(true);
+    };
+
+    const HandleDelete = () => {
+        const axiosInstance = createInstance(adminToken)
+        axiosInstance.put('/admin/newsFeed', { id: value }).then((res) => {
+
+            if (res.data.status === 'ok') {
+                setUpdated(!updated);
+                closeModals();
+            }
+        })
+    }
+    const closeModals = () => {
+        setShowModal(false);
     };
     useEffect(() => {
         const callBack = () => {
-            const axiosInstance = createInstance(token);
-
-            axiosInstance.get('/newsField').then((res) => {
-                if (res.data.status === 'ok') {
-                    setPosts(res.data.posts)
-                } else {
+            if (admin) {
+                const axiosInstance = createInstance(adminToken);
+                axiosInstance.get('/admin/newsFeed').then((res) => {
+                    if (res.data.status === 'ok') {
+                        setPosts(res.data.posts)
+                    } else {
+                    }
+                }).catch((error) => {
                     console.error('Error:', error);
-                }
-            }).catch((error) => {
-                console.error('Error:', error);
-            });
+                });
+            } else {
+                const axiosInstance = createInstance(token);
+                axiosInstance.get('/newsFeed',).then((res) => {
+                    if (res.data.status === 'ok') {
+                        setPosts(res.data.posts)
+                    } else {
+                        console.error('Error:', error);
+                    }
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
         }
         callBack();
     }, [updated])
@@ -97,53 +141,59 @@ function NewsFeed() {
 
     return (
         <div>
-            <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed',]} user='true'></Navbar>
-            <div style={{}} className='newsField'>
-                <button onClick={openModal} className='create-post-button'>Create Post</button>
+            {admin ? <Navbar lists={['Dashboard', 'Newsfeed', 'Logout']}></Navbar>
+                : <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed',]} user='true'></Navbar>}
+            {admin ? '' :
+                <div style={{}} className='newsField'>
+                    <button onClick={openModal} className='create-post-button'>Create Post</button>
 
-                {isModalOpen && (
-                    <div className="modal">
-                        <div className="modal-content">
-                            <h2>Create Post</h2>
-                            <form onSubmit={handleSubmit}>
-                                <label htmlFor="caption">Caption:</label><br />
-                                <input type="text" id="caption" name="caption" value={caption} onChange={handleCaptionChange} /><br />
+                    {isModalOpen && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <h2>Create Post</h2>
+                                <form onSubmit={handleSubmit}>
+                                    <label htmlFor="caption">Caption:</label><br />
+                                    <input type="text" id="caption" name="caption" value={caption} onChange={handleCaptionChange} /><br />
 
-                                <label >Image:</label><br />
-                                <input type="file" accept="image/*" onChange={handleImageChange} className="custom-input"
-                                /><br />
+                                    <label >Image:</label><br />
+                                    <input type="file" accept="image/*" onChange={handleImageChange} className="custom-input"
+                                    /><br />
 
-                                <button type="submit">Create</button>
-                                <br />
-                                <button onClick={closeModal}>Cancel</button>
-                            </form>
+                                    <button type="submit">Create</button>
+                                    <br />
+                                    <button onClick={closeModal}>Cancel</button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            }
             <div className='postsField'>
                 <div className="news-field">
-                    <h2 style={{fontWeight:'bold'}}>Engaging Social Posts from Your Matches..</h2>
-                    {posts.length===0?<p style={{fontSize:'2em'}}>Sorry no posts....</p>:''}
+                    {admin ? <h2 style={{ fontWeight: 'bold' }}>All posts...</h2> : <h2 style={{ fontWeight: 'bold' }}>Engaging Social Posts from Your Matches..</h2>}
+                    {posts.length === 0 ? <p style={{ fontSize: '2em' }}>Sorry no posts....</p> : ''}
                     {currentPosts.map((posts, index) => (
                         <div key={index} className="news-item">
                             <div className="news-header">
-                                <img src={`http://localhost:8000/images/${posts.image}`} alt="Author Avatar" className="author-avatar" />
+                                <img src={`http://localhost:8000/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />
                                 <div>
                                     {/* <h3>{posts.title}</h3> */}
-                                    <p>{posts.userId}</p>
+                                    <p>{posts.user[0].firstName}</p>
                                 </div>
                             </div>
                             <img src={`http://localhost:8000/images/${posts.image}`} alt="News Image" className="news-image" />
                             <p style={{ color: 'grey' }}>{posts.caption}</p>
                             <br />
-                            <AiFillLike  style={{marginLeft:'1em'}}size={30} color={liked?'blue':'grey'} onClick={()=>{handleLike(posts._id)}}></AiFillLike>
-                            <p1>{posts.likes}</p1>
+                            {admin ? <MdDelete style={{ marginLeft: '1em' }} size={30} color='red' onClick={() => { openModals(posts._id) }}></MdDelete> :
+                                <><AiFillLike style={{ marginLeft: '1em' }} size={30} color={liked[index] ? 'blue' : 'grey'} onClick={() => { handleLike(posts._id, index) }}></AiFillLike>
+                                    <span>{posts.likes}</span></>
+                            }
                             <br /><br />
                         </div>
 
                     ))}
                 </div>
+                
             </div>
 
             {/* Pagination */}
@@ -163,6 +213,12 @@ function NewsFeed() {
                     Next
                 </button>
             </div>
+            <MyModal
+                showModal={showModal}
+                closeModal={closeModals}
+                handleSaveChanges={HandleDelete}
+            ></MyModal>
+
             <Footer></Footer>
         </div>
     )

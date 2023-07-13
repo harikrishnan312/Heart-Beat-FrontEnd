@@ -64,7 +64,7 @@ function Navbar({ lists, user }) {
               </a>
             </li>
             <li className="nav-item">
-              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link"  onClick={()=>{user?navigate('/matches'):''}}>
+              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link"  onClick={()=>{user?navigate('/matches'):navigate('/admin/newsFeed')}}>
                 {lists[1]}
               </a>
             </li>
@@ -83,7 +83,7 @@ function Navbar({ lists, user }) {
             <li className="nav-item">
               <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link"  onClick={()=>{
                 if(user){
-                  navigate('/newsField')
+                  navigate('/newsFeed')
                 }
               }}>
                 {lists[3]?lists[3]:''}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './UserCard.css'
 import { AiTwotoneHeart } from 'react-icons/ai'
-import { AiFillDelete } from 'react-icons/ai'
+import { MdDelete } from 'react-icons/md'
 import { GiSelfLove } from 'react-icons/gi'
 import { GiLoveLetter } from 'react-icons/gi'
 import { useNavigate } from 'react-router-dom'
@@ -67,13 +67,13 @@ function UserCard({ user, like, match, matches,update}) {
         }}>
           <GiLoveLetter size={40} color='blue'></GiLoveLetter>
           {matches ? 
-          <AiFillDelete size={60} color='red'
+          <MdDelete size={60} color='red'
             style={{ marginLeft: '2em' }}
             onClick={(e) => {
               e.stopPropagation();
               HandleDelete(user._id)
             }}>
-          </AiFillDelete> :
+          </MdDelete> :
             <AiTwotoneHeart size={60} color={liked ? 'red' : '#e94057'}
               style={{ marginLeft: '2em' }}
               onClick={(e) => {

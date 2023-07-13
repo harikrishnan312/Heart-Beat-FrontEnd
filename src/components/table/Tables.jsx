@@ -1,8 +1,9 @@
 import React from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
-import './Table.css'; 
+import './Table.css';
+import Footer from '../footer/Footer';
 
-const Table = ({columns,data}) => {
+const Table = ({ columns, data }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -19,7 +20,7 @@ const Table = ({columns,data}) => {
     {
       columns,
       data,
-      initialState: { pageIndex: 0,pageSize:10 },
+      initialState: { pageIndex: 0, pageSize: 10 },
     },
     useSortBy,
     usePagination
@@ -62,7 +63,9 @@ const Table = ({columns,data}) => {
       </table>
       <br />
       <div className="pagination">
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}
+          style={{ borderRadius: '1em', border: 'none', backgroundColor: 'grey', margin: '.5em', color: 'white', width: '6em', height: '2em' }}
+        >
           Previous
         </button>
         <span>
@@ -71,7 +74,9 @@ const Table = ({columns,data}) => {
             {pageIndex + 1} of {pageOptions.length}
           </strong>
         </span>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
+        <button onClick={() => nextPage()} disabled={!canNextPage}
+          style={{ borderRadius: '1em', border: 'none', backgroundColor: 'grey', margin: '.5em', color: 'white', width: '6em', height: '2em' }}
+        >
           Next
         </button>
       </div>

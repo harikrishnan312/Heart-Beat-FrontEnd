@@ -32,7 +32,7 @@ function UserRoutes() {
         <Route element={<Discover></Discover>} path='/discover'></Route>
         <Route element={<Likes></Likes>} path='/likes'></Route>
         <Route element={<Matches></Matches>} path='/matches'></Route>
-        <Route element={<NewsFeed></NewsFeed>} path='/newsField'></Route>
+        <Route element={<NewsFeed admin={false}></NewsFeed>} path='/newsFeed'></Route>
       </Route>
 
     </Routes>
