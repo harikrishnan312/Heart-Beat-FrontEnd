@@ -1,0 +1,35 @@
+.homeCard {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 2em;
+    transition: transform 0.3s;
+  }
+  .homeCard:hover{
+    transform: scale(1.1);
+  }
+  
+  .card-images {
+    width: 30%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .card-contents {
+    padding: 16px;
+  }
+  
+  .card-titles{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .card-descriptions{
+    margin-top: 8px;
+    font-size: 16px;
+    color: #555;
+  }
+  

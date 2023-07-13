@@ -1,0 +1,61 @@
+/* Optional: Define a class or ID for the table container */
+.table-container {
+    width: 100%;
+  }
+  
+  /* Optional: Add some margin or padding to the table container */
+  .table-container {
+    margin-bottom: 20px;
+  }
+  
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Table header styles */
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    font-size: 1.2em;
+  }
+  
+  /* Table body styles */
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+  
+  /* Alternating row background colors */
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover effect on rows */
+  tr:hover {
+    background-color: #eaeaea;
+  }
+  .block{
+    border-radius: 2em;
+    background-color:red;
+    color: white;
+    width: 5em;
+    height: 2em;    
+    border: none;
+
+  }
+.unblock{
+  border-radius: 2em;
+  background-color: rgb(65, 206, 65);
+  color:white;
+  width: 5em;
+  height: 2em;
+  border: none;
+
+}
+.actions{
+  padding:.5em;
+}

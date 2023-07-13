@@ -1,0 +1,28 @@
+.carousel {
+    width:25em;  
+}
+.img {
+    width: 17em;
+    height: 20em;
+    border-radius: 2em;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+@media screen and (max-width: 1000px) {
+    .img {
+        display: none;
+    }
+}
+.create{
+    color:white;
+    background-color: #e94057;
+    border-radius: 1em;
+    width: 20em;
+    height: 2em;
+    font-size:1em;
+    border-color: #e94057;
+}
+.buttonClass{
+    text-align: center;
+}

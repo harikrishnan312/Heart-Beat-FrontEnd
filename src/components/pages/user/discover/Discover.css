@@ -1,0 +1,29 @@
+.cardContainer{
+    min-height: 100vh;
+    background: rgb(255,222,222);
+    background: linear-gradient(90deg, rgba(255,222,222,0.5318761384335156) 0%, rgba(188,236,247,0.4098360655737705) 100%);
+}
+.dropstart{
+    position: absolute;
+    right: 0;
+    padding: 2em;
+}
+.btn{
+  background-color: #e94057;
+}
+.dropdown-menu{
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+}
+.filter{
+    padding: 10px 20px;
+    background-color: #e94057;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 1em;
+    margin: 2em;
+}

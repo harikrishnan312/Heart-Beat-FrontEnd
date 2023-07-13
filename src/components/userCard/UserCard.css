@@ -1,0 +1,50 @@
+.userCard {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 18em;
+    height: 22em;
+    transition: transform 0.3s;
+
+  }
+  .userCard:hover{
+    transform: scale(1.01);
+
+  }
+  
+  .username {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color:white;
+  }
+  
+  .message {
+    margin: 5px 0;
+    font-size: 16px;
+    color: white;
+  }
+  
+  .message-option {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .message-option:hover {
+    background-color: #0056b3;
+  }
+  .user-details {
+    position: absolute;
+    bottom: 1em;
+    text-align: center;
+  }
