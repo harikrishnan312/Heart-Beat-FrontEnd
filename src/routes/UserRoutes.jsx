@@ -12,6 +12,7 @@ import Discover from '../components/pages/user/discover/Discover'
 import Likes from '../components/pages/user/likes/Likes'
 import Matches from '../components/pages/user/matches/Matches'
 import NewsFeed from '../components/pages/user/newsFeed/NewsFeed'
+import Message from '../components/pages/user/message/Message'
 function UserRoutes() {
   return (
 
@@ -33,6 +34,7 @@ function UserRoutes() {
         <Route element={<Likes></Likes>} path='/likes'></Route>
         <Route element={<Matches></Matches>} path='/matches'></Route>
         <Route element={<NewsFeed admin={false}></NewsFeed>} path='/newsFeed'></Route>
+        <Route element={<Message></Message>}path='/message'></Route>
       </Route>
 
     </Routes>

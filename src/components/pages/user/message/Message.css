@@ -1,0 +1,73 @@
+.msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.users-list {
+    width: 200px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+}
+
+.users-list h2 {
+    margin-top: 0;
+}
+
+.users-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.users-list li {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.users-list li.selected {
+    background-color: #f5f5f5;
+}
+
+.chat {
+    flex: 1;
+    padding: 20px;
+}
+
+.chat h2 {
+    margin-top: 0;
+}
+
+.chat p {
+    text-align: center;
+}
+
+.chat h3 {
+    margin: 0 0 10px;
+}
+
+.chat-history {
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.chat-history div {
+    margin-bottom: 5px;
+}
+
+.chat-history .sent span {
+    color: blue;
+}
+
+.chat-history .received span {
+    color: green;
+}
+
+.message-input input {
+    margin-right: 10px;
+}
+
+.message-input button {
+    padding: 5px 10px;
+}

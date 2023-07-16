@@ -65,7 +65,11 @@ function UserCard({ user, like, match, matches,update}) {
           width: '18em',
           boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)'
         }}>
-          <GiLoveLetter size={40} color='blue'></GiLoveLetter>
+          <GiLoveLetter size={40} color='blue'
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/message?id=${user._id}`)
+            }}></GiLoveLetter>
           {matches ? 
           <MdDelete size={60} color='red'
             style={{ marginLeft: '2em' }}
