@@ -142,7 +142,8 @@ function NewsFeed({ admin }) {
     return (
         <div>
             {admin ? <Navbar lists={['Dashboard', 'Newsfeed', 'Logout']}></Navbar>
-                : <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed',]} user='true'></Navbar>}
+                : <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
+}
             {admin ? '' :
                 <div style={{}} className='newsField'>
                     <button onClick={openModal} className='create-post-button'>Create Post</button>

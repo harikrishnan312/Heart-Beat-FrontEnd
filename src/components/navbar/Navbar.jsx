@@ -89,12 +89,22 @@ function Navbar({ lists, user }) {
                 {lists[3]?lists[3]:''}
               </a>
             </li>
+         
             {user ? (
               <li>
-                <div onClick={()=>{navigate('/profile')}} className="nav-link" style={{ marginLeft: 'auto', marginRight: '1em', textAlign: 'center' }}>
+                <div onClick={() => { navigate('/message') }} className="nav-link" style={{ marginLeft: 'auto', marginRight: '1em', textAlign: 'center' }}>
+                  <span style={{ color: 'white', fontSize: '1.2em' }}>{lists[4]}</span>
+                </div>
+              </li>
+            ) : (
+              ''
+            )}
+            {user ? (
+              <li>
+                <div onClick={() => { navigate('/profile') }} className="nav-link" style={{ marginLeft: 'auto', marginRight: '1em', textAlign: 'center' }}>
                   <CgProfile size={30} color="white" />
                   <span style={{ color: 'white', fontSize: '1.2em' }}>Profile</span>
-                  </div>
+                </div>
               </li>
             ) : (
               ''

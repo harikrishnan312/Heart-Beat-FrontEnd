@@ -49,7 +49,7 @@ function Matches() {
 
     return (
         <div>
-            <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed',]} user='true'></Navbar>
+            <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
             <h1 style={{ color: 'grey', paddingTop: '1em' }}> "Your perfect matches"</h1>
             {loaded ?
                 <>

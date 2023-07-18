@@ -67,7 +67,7 @@ function Likes() {
     const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser)
     return (
         <div>
-            <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed',]} user='true'></Navbar>
+            <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
 
             {loaded ?
                 <div>

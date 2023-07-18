@@ -91,7 +91,7 @@ function Discover() {
 
     return (
         <div className='discover'>
-            <Navbar lists={['Discover', 'Matches','Likes', 'Newsfeed',]} user='true'></Navbar>
+            <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
             {/* Dropdown */}
 
             <div className="btn-group dropstart">
