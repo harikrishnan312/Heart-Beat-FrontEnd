@@ -8,7 +8,7 @@ import Footer from '../../../footer/Footer'
 import { useSelector } from "react-redux";
 
 const EndPoint = "http://localhost:8000";
-let socket, selectedchatcompare,datas;
+let socket, selectedchatcompare, datas, chatid;
 
 const Message = () => {
   const chatContainerRef = useRef(null);
@@ -26,7 +26,8 @@ const Message = () => {
   const [updated, setUpdated] = useState(false);
   const [data, setData] = useState([]);
   const [chats, setChats] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState('')
 
   const user = useSelector((state) => state.user.userData);
 
@@ -58,7 +59,9 @@ const Message = () => {
           const chatUser = res.data.users.filter((chatUser) => {
             return (chatUser._id !== user._id)
           });
-          setSelectedUser(chatUser[0].firstName)
+          setSelectedUser(chatUser[0].firstName);
+
+          setImage(chatUser[0].image)
 
           setChatId(res.data._id);
 
@@ -76,7 +79,7 @@ const Message = () => {
             })
             const chats = chatUsers.map((user) => (user[0]));
             setData(res.data)
-            datas=res.data;
+            datas = res.data;
             setUsers(chats)
             setLoading(true);
 
@@ -138,20 +141,22 @@ const Message = () => {
   })
 
   const handleUserSelection = (users) => {
-    setIsTyping(false);
-    setTyping(false)
+
     setSelectedUser(users.firstName);
+    setImage(users.image)
+
     const axiosInstance = createInstance(token);
 
     axiosInstance.post('/message', { userId: users._id }).then((res) => {
       if (res.data._id) {
+
         setChatId(res.data._id);
 
-        const chatid = res.data._id
+        chatid = res.data._id
 
         socket.emit("set up", user._id);
 
-        socket.emit("join chat", (chatid));
+        socket.emit("join chat", chatid,chatId);
 
         const params = {
           chatId: res.data._id
@@ -186,7 +191,7 @@ const Message = () => {
 
     if (!typing) {
       setTyping(true);
-      socket.emit("typing", chatId);
+      socket.emit("typing", chatid);
     }
     let lastTypingTime = new Date().getTime();
     var timerLength = 2000;
@@ -210,22 +215,26 @@ const Message = () => {
               {users.map((user, index) => (
                 <li
                   key={index}
-                  className={user.firstName?(selectedUser === user.firstName ? "selected" : ""):''}
+                  className={user.firstName ? (selectedUser === user.firstName ? "selected" : "") : ''}
                   onClick={() => handleUserSelection(user)}
                 >
-                  <p style={{ color: 'red', fontWeight: 600 }}>{user.firstName?user.firstName:''}</p>
+                  <p style={{ color: 'red', fontWeight: 600 }}>{user.firstName ? user.firstName : ''}</p>
                   <p >{datas[index].latestMessage ? datas[index].latestMessage.content : ''}</p>
 
                 </li>
               ))}
-              
+
 
             </ul>
           </div>
           <div className="chat">
             {selectedUser ? (
               <div>
-                <h1 style={{ color: "grey", fontWeight: 'bold' }}>{selectedUser}</h1>
+                <div style={{ display: "flex" }}>
+                  <img src={`http://localhost:8000/images/${image}`} alt="Avatar" className="author-avatar" />
+                  <h2 style={{ color: "grey", fontWeight: 'bold' }}>{selectedUser}</h2>
+                </div>
+                <br />
                 <div className="chat-history" ref={chatContainerRef}>
                   {chatHistory.map((msg, index) => (
 
@@ -250,7 +259,7 @@ const Message = () => {
                 </div>
               </div>
             ) : (
-              <p>Select a user to start chatting</p>
+              <p style={{paddingTop:'10em',fontWeight:'bold'}}>Select a user to start chatting......</p>
             )}
           </div>
         </div>

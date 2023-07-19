@@ -81,8 +81,8 @@
     background: linear-gradient(90deg, rgba(255, 222, 222, 0.5318761384335156) 0%, rgba(188, 236, 247, 0.4098360655737705) 100%);
     max-width: 60em;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     height: 80vh;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -92,10 +92,24 @@
 }
 
 .users-list {
-    border-right: 1px solid #ccc;
-    padding-right: 20px;
-    max-height: 400px;
-    overflow-y: auhiddeno;
+    border-right: 5px solid #ccc;
+    padding-right: 3em;
+    max-height: 500px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.users-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.users-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.users-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 
 .users-list h2 {
@@ -136,7 +150,7 @@
 
 .chat-history {
     flex-grow: 1;
-    height: 300px;
+    height: 400px;
     overflow-y: scroll;
     padding: 10px;
     scrollbar-width: thin;

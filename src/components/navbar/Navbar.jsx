@@ -33,8 +33,8 @@ function Navbar({ lists, user }) {
   return (
     <nav className={`navbar navbar-expand-lg bg-body-tertiary ${collapsed ? 'collapsed' : ''}`}>
       <div className="container-fluid" style={{ backgroundColor: '#e94057', height: '5em' }}>
-        <a style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5em' ,cursor:'pointer'}} className="navbar-brand" onClick={()=>{
-          user?navigate('/home'):navigate('/admin/home')
+        <a style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5em', cursor: 'pointer' ,marginRight:'2em'}} className="navbar-brand" onClick={() => {
+          user ? navigate('/home') : navigate('/admin/home')
         }}>
           Heart Beat
         </a>
@@ -53,18 +53,19 @@ function Navbar({ lists, user }) {
         <div className={`collapse navbar-collapse ${collapsed ? '' : 'show'}`} id="navbarNav" style={{ float: 'right' }}>
           <ul className="navbar-nav" style={{ gap: '3em', paddingLeft: '3em', backgroundColor: '#e94057', alignItems: 'center', borderRadius: '1em', width: '15em' }}>
             <li className="nav-item">
-              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link active" aria-current="page" onClick={()=>{
-          user?navigate('/home'):navigate('/admin/home')}}>
+              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link active" aria-current="page" onClick={() => {
+                user ? navigate('/home') : navigate('/admin/home')
+              }}>
                 Home
               </a>
             </li>
             <li className="nav-item">
-              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={()=>{user?navigate('/discover'):''}}>
+              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => { user ? navigate('/discover') : '' }}>
                 {lists[0]}
               </a>
             </li>
             <li className="nav-item">
-              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link"  onClick={()=>{user?navigate('/matches'):navigate('/admin/newsFeed')}}>
+              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => { user ? navigate('/matches') : navigate('/admin/newsFeed') }}>
                 {lists[1]}
               </a>
             </li>
@@ -73,7 +74,7 @@ function Navbar({ lists, user }) {
                 if (!user) {
                   localStorage.removeItem('adminToken');
                   navigate('/admin/login');
-                }else{
+                } else {
                   navigate('/likes')
                 }
               }} style={{ color: 'white', fontSize: '1.2em' }} className="nav-link">
@@ -81,20 +82,20 @@ function Navbar({ lists, user }) {
               </a>
             </li>
             <li className="nav-item">
-              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link"  onClick={()=>{
-                if(user){
+              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => {
+                if (user) {
                   navigate('/newsFeed')
                 }
               }}>
-                {lists[3]?lists[3]:''}
+                {lists[3] ? lists[3] : ''}
               </a>
             </li>
-         
+
             {user ? (
               <li>
-                <div onClick={() => { navigate('/message') }} className="nav-link" style={{ marginLeft: 'auto', marginRight: '1em', textAlign: 'center' }}>
-                  <span style={{ color: 'white', fontSize: '1.2em' }}>{lists[4]}</span>
-                </div>
+                <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => { user ? navigate('/message') : '' }}>
+                  {lists[4]}
+                </a>
               </li>
             ) : (
               ''

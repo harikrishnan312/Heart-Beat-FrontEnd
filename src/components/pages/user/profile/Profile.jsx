@@ -282,7 +282,7 @@ function Profile() {
         <div>
             {loading ? <Loading /> :
                 <>
-                    <Navbar lists={['Discover', 'Matches', 'Likes','Newsfeed', ]} user='true'></Navbar>
+                    <Navbar lists={['Discover', 'Matches', 'Likes','Newsfeed','Messages' ]} user='true'></Navbar>
                     <br />
                     <h1 style={{ fontWeight: 'bold' }}>Profile</h1>
                     <div className="row profile-container">
