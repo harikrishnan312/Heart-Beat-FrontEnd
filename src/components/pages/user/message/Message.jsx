@@ -8,7 +8,7 @@ import Footer from '../../../footer/Footer'
 import { useSelector } from "react-redux";
 
 const EndPoint = "http://localhost:8000";
-var socket, selectedchatcompare;
+let socket, selectedchatcompare,datas;
 
 const Message = () => {
   const chatContainerRef = useRef(null);
@@ -23,13 +23,17 @@ const Message = () => {
   const [socketConnected, setSocketConnected] = useState(false)
   const [typing, setTyping] = useState(false);
   const [istyping, setIsTyping] = useState(false);
+  const [updated, setUpdated] = useState(false);
+  const [data, setData] = useState([]);
+  const [chats, setChats] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const user = useSelector((state) => state.user.userData);
 
 
-  var url_string = window.location.href;
-  var url = new URL(url_string);
-  var id = url.searchParams.get("id");
+  let url_string = window.location.href;
+  let url = new URL(url_string);
+  let id = url.searchParams.get("id");
 
   useEffect(() => {
 
@@ -71,8 +75,10 @@ const Message = () => {
               return (chat.users.filter((chatuser) => chatuser._id != user._id))
             })
             const chats = chatUsers.map((user) => (user[0]));
-
+            setData(res.data)
+            datas=res.data;
             setUsers(chats)
+            setLoading(true);
 
             axiosInstance.get('/allMessage', { params }).then((res) => {
               setChatHistory(res.data.messages);
@@ -80,31 +86,51 @@ const Message = () => {
           })
         }
       })
-    } else {
+    }
+    else {
       axiosInstance.get('/message').then((res) => {
         const chatUsers = res.data.map((chat) => {
           return (chat.users.filter((chatuser) => chatuser._id != user._id))
         })
         const chats = chatUsers.map((user) => (user[0]));
         setUsers(chats);
+        setData(res.data)
+        datas = res.data;
+        setLoading(true)
       })
     }
-    if(chatContainerRef.current){
 
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
+  }, [updated]);
+  useEffect(() => {
+    const axiosInstance = createInstance(token);
 
-  }, [chatHistory]);
+    axiosInstance.get('/message').then((res) => {
+      const chatUsers = res.data.map((chat) => {
+        return (chat.users.filter((chatuser) => chatuser._id != user._id))
+      })
+      const chats = chatUsers.map((user) => (user[0]));
+      setData(res.data);
+      datas = res.data;
+      setUsers(chats);
+      setLoading(true)
+
+    })
+  }, [chats])
+
   useEffect(() => {
     selectedchatcompare = chatId
   }, [chatId])
 
-
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory])
 
   useEffect(() => {
     socket.on('message recieved', (newMessageRecieved) => {
       if (!selectedchatcompare || selectedchatcompare !== newMessageRecieved.chat._id) {
-
+        setUpdated(!updated)
       } else {
         setChatHistory([...chatHistory, newMessageRecieved]);
       }
@@ -112,6 +138,8 @@ const Message = () => {
   })
 
   const handleUserSelection = (users) => {
+    setIsTyping(false);
+    setTyping(false)
     setSelectedUser(users.firstName);
     const axiosInstance = createInstance(token);
 
@@ -139,6 +167,7 @@ const Message = () => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
+    setChats(!chats)
     socket.emit("stop typing", chatId);
 
     const axiosInstance = createInstance(token);
@@ -173,54 +202,59 @@ const Message = () => {
   return (
     <>
       <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
+      {loading && users.length > 0 ?
+        <div className="msg">
+          <div className="users-list">
+            <h2 style={{ fontWeight: 'bold' }}>Chats</h2>
+            <ul>
+              {users.map((user, index) => (
+                <li
+                  key={index}
+                  className={user.firstName?(selectedUser === user.firstName ? "selected" : ""):''}
+                  onClick={() => handleUserSelection(user)}
+                >
+                  <p style={{ color: 'red', fontWeight: 600 }}>{user.firstName?user.firstName:''}</p>
+                  <p >{datas[index].latestMessage ? datas[index].latestMessage.content : ''}</p>
 
-      <div className="msg">
-        <div className="users-list">
-          <h2>Users</h2>
-          <ul>
-            {users.map((user, index) => (
-              <li
-                key={index}
-                className={selectedUser === user.firstName ? "selected" : ""}
-                onClick={() => handleUserSelection(user)}
-              >
-                {user.firstName}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="chat">
-          <h2>Chat</h2>
-          {selectedUser ? (
-            <div>
-              <h3 style={{color:"blue"}}>{selectedUser}</h3>
-              <div className="chat-history" ref={chatContainerRef}>
-                {chatHistory.map((msg, index) => (
-                  
-                  <div
-                    key={index}
-                    className={msg.sender.firstName === user.firstName ? "sent" : "received"}
-                  >
-                    <span style={{color:'red'}}>{msg.sender.firstName}: </span>
-                    <span>{msg.content}</span>
-                  </div>
-                ))}
+                </li>
+              ))}
+              
+
+            </ul>
+          </div>
+          <div className="chat">
+            {selectedUser ? (
+              <div>
+                <h1 style={{ color: "grey", fontWeight: 'bold' }}>{selectedUser}</h1>
+                <div className="chat-history" ref={chatContainerRef}>
+                  {chatHistory.map((msg, index) => (
+
+                    <div
+                      key={index}
+                      className={msg.sender.firstName === user.firstName ? "sent" : "received"}
+                    >
+                      <span style={{ color: 'red' }}>{msg.sender.firstName}: </span>
+                      <span>{msg.content}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="message-input">
+                  {istyping ? <div style={{ color: 'grey' }}>Typing...</div> : <></>}
+                  <input
+                    type="text"
+                    value={message}
+                    onChange={typingHandler}
+                    style={{ marginTop: '.65em' }}
+                  />
+                  <button onClick={handleSendMessage}>Send</button>
+                </div>
               </div>
-              <div className="message-input">
-                {istyping?<div>Typing...</div>:<></>}
-                <input
-                  type="text"
-                  value={message}
-                  onChange={typingHandler}
-                />
-                <button onClick={handleSendMessage}>Send</button>
-              </div>
-            </div>
-          ) : (
-            <p>Select a user to start chatting</p>
-          )}
+            ) : (
+              <p>Select a user to start chatting</p>
+            )}
+          </div>
         </div>
-      </div>
+        : ''}
       <Footer></Footer>
     </>
   );
