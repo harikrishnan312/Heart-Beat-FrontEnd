@@ -207,7 +207,7 @@ const Message = () => {
   return (
     <>
       <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
-      {loading && users.length > 0 ?
+      {loading ?
         <div className="msg">
           <div className="users-list">
             <h2 style={{ fontWeight: 'bold' }}>Chats</h2>
@@ -254,7 +254,7 @@ const Message = () => {
                     value={message}
                     onChange={typingHandler}
                     style={{ marginTop: '.65em' }}
-                  />
+                    pattern="^[a-zA-Z0-9]" required/>
                   <button onClick={handleSendMessage}>Send</button>
                 </div>
               </div>

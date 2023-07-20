@@ -49,18 +49,18 @@ function Home() {
   };
 
   const columns = [
-    { Header: 'Name', accessor: 'firstName' },
+    { Header: 'Name', accessor: '_doc.firstName' },
     { Header: 'Age', accessor: 'age' },
-    { Header: 'Email', accessor: 'email' },
-    { Header: 'Intersests', accessor: 'interests' },
+    { Header: 'Email', accessor: '_doc.email' },
+    { Header: 'Intersests', accessor: '_doc.interests' },
     // { Header: 'Location', accessor: 'location' },
     {
       Header: 'Actions',
-      accessor: (row) => row._id,
+      accessor: (row) => row._doc._id,
       Cell: ({ value, row }) => (
         <div className='actions'>
-          {row.original.isVerified ?
-            (row.original.isBlocked ? (
+          {row.original._doc.isVerified ?
+            (row.original._doc.isBlocked ? (
               <button className='unblock' onClick={() => openModal(value, false)} >
                 Unblock
               </button>
@@ -89,7 +89,7 @@ function Home() {
       axiosInstance
         .get('/admin/home', { params })
         .then((response) => {
-          setData(response.data.users)
+          setData(response.data.updatedUsers)
         })
         .catch((error) => {
           console.error('Error:', error);
