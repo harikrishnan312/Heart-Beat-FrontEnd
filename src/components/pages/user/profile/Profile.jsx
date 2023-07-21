@@ -21,6 +21,8 @@ import card2 from '../../../images/card2.png'
 import card3 from '../../../images/card3.png'
 import card4 from '../../../images/card4.png'
 import Footer from '../../../footer/Footer';
+import { MdWorkspacePremium } from 'react-icons/md'
+
 
 
 
@@ -142,7 +144,7 @@ function Profile() {
             })
     }
 
-    const HandleDelete = (index)=>{
+    const HandleDelete = (index) => {
         setIndex(index)
         const formData = new FormData();
         formData.append('deleted', true);
@@ -150,16 +152,16 @@ function Profile() {
 
         const axiosInstance = createInstance(token);
         axiosInstance
-        .post('/images', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-        .then((response) => {
-            if (response.data.status == 'ok') {
-                setUpdated(!updated);
-            }
-        })
+            .post('/images', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((response) => {
+                if (response.data.status == 'ok') {
+                    setUpdated(!updated);
+                }
+            })
 
     }
     const handleMultipleImages = (event) => {
@@ -282,7 +284,7 @@ function Profile() {
         <div>
             {loading ? <Loading /> :
                 <>
-                    <Navbar lists={['Discover', 'Matches', 'Likes','Newsfeed','Messages' ]} user='true'></Navbar>
+                    <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
                     <br />
                     <h1 style={{ fontWeight: 'bold' }}>Profile</h1>
                     <div className="row profile-container">
@@ -306,13 +308,13 @@ function Profile() {
                                 <div className="image-grid">
                                     {images ? images.map((image, index) => (
                                         <div key={index} className="image-container">
-                                            {image?
-                                                <img className='imgs' style={{ borderRadius: '1em' }} src={`http://localhost:8000/images/${image}`} alt={`Image ${index}`} />:''
+                                            {image ?
+                                                <img className='imgs' style={{ borderRadius: '1em' }} src={`http://localhost:8000/images/${image}`} alt={`Image ${index}`} /> : ''
                                             }
                                             <input ref={filesEditRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={HandleEditImages} />
 
                                             {editing ? <AiFillEdit style={{ marginRight: '1em' }} size={30} color='blue' onClick={() => handleEditClick(index)} ></AiFillEdit> : ''}
-                                            {editing ? <AiFillDelete size={30} color='red' onClick={()=>{HandleDelete(index)}}></AiFillDelete> : ''}
+                                            {editing ? <AiFillDelete size={30} color='red' onClick={() => { HandleDelete(index) }}></AiFillDelete> : ''}
 
                                         </div>
                                     )) : ''
@@ -489,6 +491,7 @@ function Profile() {
                                 </div>
                             ) : (
                                 <div className="profile-section" style={{ paddingLeft: '4em' }}>
+                                        {user.PremiumPurchased ? <><MdWorkspacePremium style={{ marginLeft: '2em' }} size={40} color='gold'></MdWorkspacePremium> <p style={{ color: 'grey', fontWeight: 'bolder', fontSize: '1.5em' }}>Premium User..</p> </> : ''}
                                     <p className="profile-name">{user.firstName} {user.lastName}</p>
                                     <p><span className="field-label">Email:</span> {user.email}</p>
                                     <p><span className="field-label">Phone:</span> {user.mobile}</p>
@@ -496,6 +499,7 @@ function Profile() {
                                     <p><span className="field-label">Location:</span> {user.location.placeName}</p>
                                     <p><span className="field-label">Gender:</span> {user.gender}</p>
                                     <h3>About</h3>
+
                                     <p className="about-text">{user.about}</p>
                                     {auth ? '' : (
                                         <div className="profile-buttons">

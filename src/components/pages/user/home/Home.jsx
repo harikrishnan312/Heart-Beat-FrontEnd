@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Home.css'
 
-import baseApiCall from '../../../../constants/fetchApi';
 
 import { useDispatch } from 'react-redux'
 import { setUserData } from '../../../../redux/userData';
@@ -19,13 +18,12 @@ import card3 from '../../../images/card3.png';
 import card4 from '../../../images/card4.png';
 import Footer from '../../../footer/Footer';
 import createInstance from '../../../../constants/axiosApi';
+import handlePayment from '../../../../constants/razorPay';
 
 
 
 
 function Home() {
-
-
 
   const dispatch = useDispatch(null);
 
@@ -40,24 +38,24 @@ function Home() {
       const axiosInstance = createInstance(token);
 
       axiosInstance
-          .get('/home')
-          .then((response) => {
-              const data = response.data;
-              if (data) {
-                dispatch(setUserData(data.user))
-              }
-          })
-          .catch((error) => {
-              console.error('Error:', error);
-          });
+        .get('/home')
+        .then((response) => {
+          const data = response.data;
+          if (data) {
+            dispatch(setUserData(data.user))
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
 
     callBack()
   }, [])
   return (
     <div>
-      <Navbar lists={['Discover', 'Matches','Likes', 'Newsfeed','Messages']} user='true'></Navbar>
-    
+      <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
+
 
       <div className='row'>
         <div className='col-md-12 header1'><span >It All Starts With A Date</span></div>
@@ -78,8 +76,8 @@ function Home() {
           <img className='img-fluid' src={img3} alt="" />
         </div>
         <div className='col-md-6' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          <p style={{ fontSize: '1.5em', fontWeight: 'bold', width: '15em' }}>Upgrade your dating experience with our premium membership!</p>
-          <button style={{ backgroundColor: '#e94057', borderRadius: '1em', color: 'white', width: '10em', height: '3em', fontWeight: 'bold', alignContent: 'center', border: 'none' }}>Premium</button>
+          <p style={{ fontSize: '1.5em', fontWeight: 'bold', width: '15em' }}>Upgrade your dating experience with our premium membership! Only 599/-</p>
+          <button style={{ backgroundColor: '#e94057', borderRadius: '1em', color: 'white', width: '10em', height: '3em', fontWeight: 'bold', alignContent: 'center', border: 'none' }}  onClick={handlePayment}>Premium</button>
           <br /><br />
         </div>
         <div className='col-md-6' >

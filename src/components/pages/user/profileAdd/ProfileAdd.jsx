@@ -81,11 +81,12 @@ function ProfileAdd() {
 
     const CheckLocation = async (e) => {
         setLocation(e.target.value);
+        let locations=e.target.value;
         setOpenSuggestions(true)
         let options = {
             method: 'get',
             params: {
-                query: location
+                query: locations
             }
         }
 
