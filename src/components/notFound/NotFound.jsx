@@ -1,11 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import img from '../images/404page.gif'
 
-const NotFound = () => {
+
+const NotFound = ({user}) => {
+    const navigate = useNavigate('')
     return (
-        <div>
-            <h1>404 - Page Not Found</h1>
-            <p>Sorry, the page you are looking for does not exist.</p>
-            {/* You can add links or other content here */}
+        <div style={{textAlign:'center' ,paddingTop:'2em'}}>
+            <img src={img} alt="404 Not Found" />
+            <p onClick={()=>{
+                { user ? navigate('/home') : navigate('/admin/home') }
+                
+            }} style={{cursor:'pointer', color:'blue', padding:'2em'}}>Home</p>
         </div>
     );
 };

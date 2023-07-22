@@ -33,7 +33,7 @@ function Navbar({ lists, user }) {
   return (
     <nav className={`navbar navbar-expand-lg bg-body-tertiary ${collapsed ? 'collapsed' : ''}`}>
       <div className="container-fluid" style={{ backgroundColor: '#e94057', height: '5em' }}>
-        <a style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5em', cursor: 'pointer' ,marginRight:'2em'}} className="navbar-brand" onClick={() => {
+        <a style={{ color: 'white', fontWeight: 'bold', fontSize: '1.5em', cursor: 'pointer', marginRight: '2em' }} className="navbar-brand" onClick={() => {
           user ? navigate('/home') : navigate('/admin/home')
         }}>
           Heart Beat

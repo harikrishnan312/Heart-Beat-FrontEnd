@@ -13,6 +13,8 @@ import Likes from '../components/pages/user/likes/Likes'
 import Matches from '../components/pages/user/matches/Matches'
 import NewsFeed from '../components/pages/user/newsFeed/NewsFeed'
 import Message from '../components/pages/user/message/Message'
+import NotFound from '../components/notFound/NotFound'
+
 function UserRoutes() {
   return (
 
@@ -36,6 +38,7 @@ function UserRoutes() {
         <Route element={<NewsFeed admin={false}></NewsFeed>} path='/newsFeed'></Route>
         <Route element={<Message></Message>}path='/message'></Route>
       </Route>
+      <Route element={<NotFound user={true} />} path="*" />
 
     </Routes>
 
