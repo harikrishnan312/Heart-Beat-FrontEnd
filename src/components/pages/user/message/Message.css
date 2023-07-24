@@ -135,6 +135,20 @@
     border-radius: 3px;
     background-color: #f0f0f0;
     transition: background-color 0.3s;
+    overflow: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+.users-list li::-webkit-scrollbar {
+    width: 6px;
+}
+
+.users-list li::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.users-list li::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 
 .users-list li.selected {
@@ -174,6 +188,8 @@
 }
 
 .chat-history div {
+    word-break: break-all;
+    max-width: 10em;
     padding: 5px;
     margin-bottom: 5px;
     display: flex;
@@ -196,6 +212,7 @@
 }
 
 .chat-history .received {
+    max-width: 10em;
     padding: .5em;
     border-radius: 1em;
     margin: .5em;

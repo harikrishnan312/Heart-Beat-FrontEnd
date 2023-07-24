@@ -10,9 +10,16 @@ import createInstance from '../../constants/axiosApi'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import io from "socket.io-client";
+import { useSelector } from 'react-redux'
+
+const EndPoint = "http://localhost:8000";
+let socket;
 
 
 function UserCard({ user, like, match, matches, update }) {
+  const users = useSelector((state) => state.user.userData);
+
   const [liked, setLiked] = useState(like)
   const token = localStorage.getItem('token')
   const navigate = useNavigate('')
@@ -24,7 +31,13 @@ function UserCard({ user, like, match, matches, update }) {
     axiosInstance
       .patch('/profileLike', { id, liked: updatedLiked, match })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        !liked?socket = io(EndPoint):''
+
+        !liked?socket.emit("set up", users._id):''
+
+        !liked?socket.emit("like sent", id):'';
+        
         if (res.data.status === 'ok' && match) {
           toast.success("It's a perfect match", {
             position: toast.POSITION.TOP_RIGHT
@@ -49,6 +62,8 @@ function UserCard({ user, like, match, matches, update }) {
 
   }
 
+
+
   return (
     <div className="card userCard" style={{
       // backgroundImage: `url(http://localhost:8000/images/${user.image})`,
@@ -63,9 +78,9 @@ function UserCard({ user, like, match, matches, update }) {
         borderRadius: '1em', height: '22em', width: '18em', position: 'absolute', zIndex: 1, objectFit: 'cover'
       }} />
       <div className="user-details">
-      
+
         <h3 className="username"
-          style={{ padding: '.5em', color: 'grey',position:'relative', zIndex: 2,fontFamily:'cursive' }}>{user.firstName}</h3>
+          style={{ padding: '.5em', color: 'white', position: 'relative', zIndex: 2, fontFamily: 'cursive' }}>{user.firstName}</h3>
         <div style={{
           backgroundColor: 'white',
           width: '18em',

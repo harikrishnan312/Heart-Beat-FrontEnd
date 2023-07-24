@@ -5,6 +5,9 @@
     top: 0;
     z-index: 100;
 }
+.nav-item{
+        position: relative;
+}
 
 .nav-link {
     transition: transform 0.3s;
@@ -14,4 +17,16 @@
 .nav-link:hover {
     transform: scale(1.1);
 
+}
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ffffff;
+    /* Choose your badge background color */
+    color: #ff5733;
+    /* Choose your badge text color */
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
 }

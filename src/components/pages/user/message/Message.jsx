@@ -5,16 +5,18 @@ import io from "socket.io-client";
 import createInstance from "../../../../constants/axiosApi";
 import Navbar from "../../../navbar/Navbar";
 import Footer from '../../../footer/Footer'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FiSettings } from 'react-icons/fi'
 import { MdDelete } from 'react-icons/md'
+import { setNotification } from "../../../../redux/notification";
 
 
 const EndPoint = "http://localhost:8000";
 let socket, selectedchatcompare, datas, chatid;
 
 const Message = () => {
+  const dispatch = useDispatch()
   const chatContainerRef = useRef(null);
 
   const navigate = useNavigate()
@@ -37,6 +39,7 @@ const Message = () => {
   const [edit, setEdit] = useState(false)
 
   const user = useSelector((state) => state.user.userData);
+  // const notification = useSelector((state) => state.notification.notification);
 
 
   let url_string = window.location.href;
@@ -141,6 +144,9 @@ const Message = () => {
 
   useEffect(() => {
     socket.on('message recieved', (newMessageRecieved) => {
+      // console.log('hy i am here');
+      dispatch(setNotification('new'));
+
       if (!selectedchatcompare || selectedchatcompare !== newMessageRecieved.chat._id) {
         setUpdated(!updated)
       } else {
@@ -181,6 +187,7 @@ const Message = () => {
   };
 
   const handleSendMessage = (e) => {
+
     e.preventDefault();
     setChats(!chats)
     socket.emit("stop typing", chatId);
@@ -216,14 +223,13 @@ const Message = () => {
   };
 
   const HandleDelete = async (data) => {
-    console.log(data.users[1]._id, id);
     const axiosInstance = createInstance(token);
     axiosInstance.post('/deleteMessage', { id: data._id }).then((res) => {
       if (res.status === 200) {
         const user = data.users.filter((user)=>user._id===id)
         
         if (user.length>0) {
-          setSelectedUser('');
+          setSelectedUser(null);
           setImage('');
           setUserId('')
           setChatHistory([])

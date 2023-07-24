@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { CgProfile } from 'react-icons/cg'
 import './Navbar.css'
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setNotification } from "../../redux/notification";
+
 
 
 function Navbar({ lists, user }) {
+  const notification = useSelector((state) => state.notification.notification);
+  const dispatch = useDispatch()
+
+  // console.log(notification);
   const [collapsed, setCollapsed] = useState(true);
   const navigate = useNavigate()
 
@@ -92,10 +99,15 @@ function Navbar({ lists, user }) {
             </li>
 
             {user ? (
-              <li>
-                <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => { user ? navigate('/message') : '' }}>
+              <li className="nav-item">
+                <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => {
+                  dispatch(setNotification(''));
+                  navigate('/message')
+                }}>
                   {lists[4]}
                 </a>
+                <span className="badge">{notification}</span>
+
               </li>
             ) : (
               ''

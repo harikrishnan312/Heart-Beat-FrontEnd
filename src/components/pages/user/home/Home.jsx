@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './Home.css'
 
+import io from "socket.io-client";
 
-import { useDispatch } from 'react-redux'
+
+
+import { useDispatch, useSelector } from 'react-redux'
 import { setUserData } from '../../../../redux/userData';
 
 import Navbar from '../../../navbar/Navbar';
@@ -20,10 +23,17 @@ import Footer from '../../../footer/Footer';
 import createInstance from '../../../../constants/axiosApi';
 import handlePayment from '../../../../constants/razorPay';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
+
+const EndPoint = "http://localhost:8000";
+let socket;
 
 function Home() {
+  const user = useSelector((state) => state.user.userData);
+
 
   const dispatch = useDispatch(null);
 
@@ -44,6 +54,7 @@ function Home() {
           if (data) {
             dispatch(setUserData(data.user))
           }
+
         })
         .catch((error) => {
           console.error('Error:', error);
@@ -52,6 +63,31 @@ function Home() {
 
     callBack()
   }, [])
+  useEffect(() => {
+    socket = io(EndPoint);
+
+    socket.emit("set up", user._id);
+  }, [])
+
+  useEffect(() => {
+    socket.on('message recieved', (newMessageRecieved) => {
+      
+      toast(`New Message Recieved..............
+       ${ newMessageRecieved.sender.firstName}`, {
+        position: toast.POSITION.TOP_RIGHT
+      })
+      dispatch(setNotification('new'));
+
+    })
+    socket.on("like received", () => {
+      console.log("hy i liked u");
+      toast("Somebody Likes You...", {
+        position: toast.POSITION.TOP_RIGHT
+      })
+
+    })
+
+  })
   return (
     <div>
       <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
@@ -77,7 +113,7 @@ function Home() {
         </div>
         <div className='col-md-6' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
           <p style={{ fontSize: '1.5em', fontWeight: 'bold', width: '15em' }}>Upgrade your dating experience with our premium membership! Only 599/-</p>
-          <button style={{ backgroundColor: '#e94057', borderRadius: '1em', color: 'white', width: '10em', height: '3em', fontWeight: 'bold', alignContent: 'center', border: 'none' }}  onClick={handlePayment}>Premium</button>
+          <button style={{ backgroundColor: '#e94057', borderRadius: '1em', color: 'white', width: '10em', height: '3em', fontWeight: 'bold', alignContent: 'center', border: 'none' }} onClick={handlePayment}>Premium</button>
           <br /><br />
         </div>
         <div className='col-md-6' >
