@@ -1,5 +1,5 @@
 // api.js
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'https://heart-beat.onrender.com';
 
 // const baseApiCall = async (endpoint, options) => {
 //   try {
