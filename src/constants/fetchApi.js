@@ -1,5 +1,5 @@
 // api.js
-const BASE_URL = 'https://heart-beat.onrender.com';
+const BASE_URL = 'https://heartbeat-e56y.onrender.com'
 // const BASE_URL = "http://localhost:8000"
 
 
