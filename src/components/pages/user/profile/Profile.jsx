@@ -23,6 +23,9 @@ import card4 from '../../../images/card4.png'
 import Footer from '../../../footer/Footer';
 import { MdWorkspacePremium } from 'react-icons/md'
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -66,6 +69,17 @@ function Profile() {
 
 
     const dispatch = useDispatch(null);
+    const HandleReport = () => {
+        const axiosInstance = createInstance(token);
+        axiosInstance.post('/report', { id }).then((res) => {
+            console.log(res.data);
+            if (res.status == 200) {
+                toast.error("User Reported..... ", {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+            }
+        })
+    }
 
     const handleEdit = () => {
         setEditing(true);
@@ -491,7 +505,7 @@ function Profile() {
                                 </div>
                             ) : (
                                 <div className="profile-section" style={{ paddingLeft: '4em' }}>
-                                        {user.PremiumPurchased ? <><MdWorkspacePremium style={{ marginLeft: '2em' }} size={40} color='gold'></MdWorkspacePremium> <p style={{ color: 'grey', fontWeight: 'bolder', fontSize: '1.5em' }}>Premium User..</p> </> : ''}
+                                    {user.PremiumPurchased ? <><MdWorkspacePremium style={{ marginLeft: '2em' }} size={40} color='gold'></MdWorkspacePremium> <p style={{ color: 'grey', fontWeight: 'bolder', fontSize: '1.5em' }}>Premium User..</p> </> : ''}
                                     <p className="profile-name">{user.firstName} {user.lastName}</p>
                                     <p><span className="field-label">Email:</span> {user.email}</p>
                                     <p><span className="field-label">Phone:</span> {user.mobile}</p>
@@ -501,17 +515,19 @@ function Profile() {
                                     <h3>About</h3>
 
                                     <p className="about-text">{user.about}</p>
-                                    {auth ? '' : (
-                                        <div className="profile-buttons">
-                                            <button className="edit-button" onClick={handleEdit}>Edit</button>
-                                            <button className="logout-button" onClick={() => {
-                                                localStorage.removeItem('token');
-                                                localStorage.removeItem('refreshToken');
-                                                navigate('/login');
-                                                dispatch(setUserData(null));
-                                            }}>Logout</button>
-                                        </div>
-                                    )}
+                                    <br />
+                                    {auth ? <button className="logout-button" onClick={HandleReport}>Report</button>
+                                        : (
+                                            <div className="profile-buttons">
+                                                <button className="edit-button" onClick={handleEdit}>Edit</button>
+                                                <button className="logout-button" onClick={() => {
+                                                    localStorage.removeItem('token');
+                                                    localStorage.removeItem('refreshToken');
+                                                    navigate('/login');
+                                                    dispatch(setUserData(null));
+                                                }}>Logout</button>
+                                            </div>
+                                        )}
                                 </div>
 
                             )}

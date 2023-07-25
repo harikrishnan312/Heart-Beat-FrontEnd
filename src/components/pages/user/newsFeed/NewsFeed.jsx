@@ -141,7 +141,7 @@ function NewsFeed({ admin }) {
 
     return (
         <div>
-            {admin ? <Navbar lists={['Dashboard', 'Newsfeed', 'Logout']}></Navbar>
+            {admin ? <Navbar lists={['Dashboard', 'Newsfeed','Report', 'Logout']}></Navbar>
                 : <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
 }
             {admin ? '' :

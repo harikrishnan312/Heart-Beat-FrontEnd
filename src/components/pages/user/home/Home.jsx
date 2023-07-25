@@ -71,9 +71,9 @@ function Home() {
 
   useEffect(() => {
     socket.on('message recieved', (newMessageRecieved) => {
-      
+
       toast(`New Message Recieved..............
-       ${ newMessageRecieved.sender.firstName}`, {
+       ${newMessageRecieved.sender.firstName}`, {
         position: toast.POSITION.TOP_RIGHT
       })
       dispatch(setNotification('new'));

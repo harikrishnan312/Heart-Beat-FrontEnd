@@ -7,7 +7,7 @@ const NotFound = ({user}) => {
     const navigate = useNavigate('')
     return (
         <div style={{textAlign:'center' ,paddingTop:'2em'}}>
-            <img src={img} alt="404 Not Found" />
+            <img className='img-fluid' src={img} alt="404 Not Found" />
             <p onClick={()=>{
                 { user ? navigate('/home') : navigate('/admin/home') }
                 

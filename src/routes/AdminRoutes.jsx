@@ -6,6 +6,7 @@ import Home from '../components/pages/admin/home/Home'
 import RequireAdminAuth from '../Auth/RequireAdminAuth'
 import NewsFeed from '../components/pages/user/newsFeed/NewsFeed'
 import NotFound from '../components/notFound/NotFound'
+import Report from '../components/pages/admin/report/Report'
 
 
 function AdminRoutes() {
@@ -21,6 +22,7 @@ function AdminRoutes() {
       <Route element={<RequireAdminAuth logged='true' />}>
         <Route element={<Home></Home>} path='/home'></Route>
         <Route element={<NewsFeed admin={true}></NewsFeed>} path='/newsFeed'></Route>
+        <Route element={<Report></Report>} path='/report'></Route>
       </Route>
       <Route element={<NotFound user={false} />} path="*" />
     </Routes>

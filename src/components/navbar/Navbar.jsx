@@ -79,8 +79,7 @@ function Navbar({ lists, user }) {
             <li className="nav-item">
               <a onClick={() => {
                 if (!user) {
-                  localStorage.removeItem('adminToken');
-                  navigate('/admin/login');
+                 navigate('/admin/report')
                 } else {
                   navigate('/likes')
                 }
@@ -92,6 +91,9 @@ function Navbar({ lists, user }) {
               <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => {
                 if (user) {
                   navigate('/newsFeed')
+                }else{
+                  localStorage.removeItem('adminToken');
+                  navigate('/admin/login');
                 }
               }}>
                 {lists[3] ? lists[3] : ''}

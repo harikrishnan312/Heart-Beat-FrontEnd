@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 const MyModal = ({ showModal, closeModal, handleSaveChanges }) => {
   return (
+    <div>
     <Modal show={showModal} onHide={closeModal}>
       <Modal.Header closeButton>
         <Modal.Title>ALERT</Modal.Title>
@@ -19,6 +20,7 @@ const MyModal = ({ showModal, closeModal, handleSaveChanges }) => {
         </Button>
       </Modal.Footer>
     </Modal>
+    </div>
   );
 };
 

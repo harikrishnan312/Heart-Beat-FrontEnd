@@ -101,7 +101,7 @@ function Home() {
   }, [render, verified])
   return (
     <div >
-      <Navbar lists={['Dashboard', 'Newsfeed', 'Logout']}></Navbar>
+      <Navbar lists={['Dashboard', 'Newsfeed','Report', 'Logout']}></Navbar>
       <h1>Users</h1>
       <div style={{ textAlign: 'center' }}><button className='buttonVerified' onClick={() => { setVerified(true) }}>Verified</button>
         <button className='buttonVerified' onClick={() => { setVerified(false) }}>Not Verified</button>
