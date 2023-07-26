@@ -66,7 +66,7 @@ function Home() {
   useEffect(() => {
     socket = io(EndPoint);
 
-    socket.emit("set up", user._id);
+    user?socket.emit("set up", user._id):''
   }, [])
 
   useEffect(() => {
