@@ -12,7 +12,7 @@ import { MdDelete } from 'react-icons/md'
 import { setNotification } from "../../../../redux/notification";
 
 
-const EndPoint = "http://localhost:8000";
+const EndPoint = "https://vanchi.online";
 let socket, selectedchatcompare, datas, chatid;
 
 const Message = () => {

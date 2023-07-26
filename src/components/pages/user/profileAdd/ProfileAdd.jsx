@@ -72,7 +72,6 @@ function ProfileAdd() {
             }
 
             const data = await baseApiCall('profileAdd', options);
-
             if (data.status == 'ok') {
                 navigate(`/interest?id=${id}`)
             }
@@ -81,7 +80,7 @@ function ProfileAdd() {
 
     const CheckLocation = async (e) => {
         setLocation(e.target.value);
-        let locations=e.target.value;
+        let locations = e.target.value;
         setOpenSuggestions(true)
         let options = {
             method: 'get',

@@ -1,7 +1,7 @@
 // api.js
 // const BASE_URL = 'https://heartbeat-e56y.onrender.com'
 // const BASE_URL = "http://localhost:8000"
-const BASE_URL = "https://vanchi.online"
+const BASE_URL = 'https://vanchi.online'
 
 
 // const baseApiCall = async (endpoint, options) => {
