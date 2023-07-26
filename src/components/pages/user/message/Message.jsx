@@ -276,7 +276,7 @@ const Message = () => {
             {selectedUser ? (
               <div>
                 <div style={{ display: "flex" }}>
-                  <img src={`http://localhost:8000/images/${image}`} alt="Avatar" className="author-avatar" onClick={() => {
+                  <img src={` https://vanchi.online/images/${image}`} alt="Avatar" className="author-avatar" onClick={() => {
                     navigate(`/profile?id=${userId}&user=${false}`)
                   }} />
                   <h2 style={{ color: "grey", fontWeight: 'bold' }}>{selectedUser}</h2>
