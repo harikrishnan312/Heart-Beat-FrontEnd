@@ -5,7 +5,7 @@ import logo from '../../../images/logo.jpeg'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Spinner from '../../../spinner/spinner';
+import Spinner from '../../../spinner/Spinner';
 
 function OTP() {
   const [otp, setOtp] = useState('');
