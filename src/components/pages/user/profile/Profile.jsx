@@ -307,7 +307,7 @@ function Profile() {
                             <div>
                                 {dp ? (
                                     <div style={{ textAlign: 'center', padding: '1' }}><img className='preview img-fluid' src={selectedImage ? URL.createObjectURL(selectedImage) : ` https://vanchi.online/images/${dp}`} alt="Image Preview" style={{
-                                        width: '25em', height: '20em', borderRadius: '.5em'
+                                        width: '25em', height: '20em', borderRadius: '.5em', objectFit: 'cover'
                                     }} />
                                         {editing ? <div style={{ textAlign: 'center' }} onClick={handleIconClick}><AiFillCamera size={30} color='#e94057' /></div> : ''}
                                     </div>
