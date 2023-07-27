@@ -17,6 +17,7 @@ function NewsFeed({ admin }) {
     const [liked, setLiked] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [value, setValue] = useState();
+    const [loading,setLoading] = useState(false)
 
 
 
@@ -117,6 +118,7 @@ function NewsFeed({ admin }) {
                 axiosInstance.get('/admin/newsFeed').then((res) => {
                     if (res.data.status === 'ok') {
                         setPosts(res.data.posts)
+                        setLoading(true)
                     } else {
                     }
                 }).catch((error) => {
@@ -127,6 +129,7 @@ function NewsFeed({ admin }) {
                 axiosInstance.get('/newsFeed',).then((res) => {
                     if (res.data.status === 'ok') {
                         setPosts(res.data.posts)
+                        setLoading(true)
                     } else {
                         console.error('Error:', error);
                     }
@@ -140,6 +143,7 @@ function NewsFeed({ admin }) {
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
 
     return (
+      
         <div>
             {admin ? <Navbar lists={['Dashboard', 'Newsfeed','Report', 'Logout']}></Navbar>
                 : <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
@@ -169,6 +173,7 @@ function NewsFeed({ admin }) {
                     )}
                 </div>
             }
+            {loading?posts?
             <div className='postsField'>
                 <div className="news-field">
                     {admin ? <h2 style={{ fontWeight: 'bold' }}>All posts...</h2> : <h2 style={{ fontWeight: 'bold' }}>Engaging Social Posts from Your Matches..</h2>}
@@ -178,7 +183,6 @@ function NewsFeed({ admin }) {
                             <div className="news-header">
                                 {posts.user[0].image?<img src={`https://vanchi.online/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />:''}
                                 <div>
-                                    {/* <h3>{posts.title}</h3> */}
                                     <p>{posts.user[0].firstName}</p>
                                 </div>
                             </div>
@@ -192,13 +196,14 @@ function NewsFeed({ admin }) {
                             <br /><br />
                         </div>
 
-                    ))}
+))}
                 </div>
                 
             </div>
 
-            {/* Pagination */}
-            <div className="pagination" style={{ padding: '3em' }}>
+:'':''}
+{/* Pagination */}
+<div className="pagination" style={{ padding: '3em' }}>
                 <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
