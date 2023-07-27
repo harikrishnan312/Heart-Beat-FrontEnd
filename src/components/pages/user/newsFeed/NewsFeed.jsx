@@ -176,7 +176,7 @@ function NewsFeed({ admin }) {
                     {currentPosts.map((posts, index) => (
                         <div key={index} className="news-item">
                             <div className="news-header">
-                                {posts[0].image?<img src={`https://vanchi.online/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />:''}
+                                {posts.user[0].image?<img src={`https://vanchi.online/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />:''}
                                 <div>
                                     {/* <h3>{posts.title}</h3> */}
                                     <p>{posts.user[0].firstName}</p>
