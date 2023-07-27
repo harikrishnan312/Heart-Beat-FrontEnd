@@ -67,7 +67,7 @@ function Navbar({ lists, user }) {
               </a>
             </li>
             <li className="nav-item">
-              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => { user ? navigate('/discover') : '' }}>
+              <a style={{ color: 'white', fontSize: '1.2em' }} className="nav-link" onClick={() => { user ? navigate('/discover') : navigate('/admin/dashboard') }}>
                 {lists[0]}
               </a>
             </li>
