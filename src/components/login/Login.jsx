@@ -38,7 +38,11 @@ function Login({ role }) {
       })
       navigate('/home')
 
-    } else if (data.status == 'Verification failed complete your registration') {
+    } else if (data.status == 'addProfile') {
+      setId(data.user);
+      setError('Complete profile to login')
+    }
+    else if (data.status == 'Verification failed complete your registration') {
       setId(data.user)
       setError(data.status)
     }
@@ -85,7 +89,10 @@ function Login({ role }) {
         <br></br>
         {role == 'user' ? <Link to={('/signUp')}><p style={{ textAlign: 'center' }}>SignUp</p></Link> : ''}
       </form>
-      <div style={{ textAlign: 'center' }}><span style={{ color: 'red' }}>{error}</span><p>{error == 'Verification failed complete your registration' ? <a onClick={() => { navigate(`/otp?id=${id}`) }}>Click here to complete verificaction</a> : ''}</p></div>
+      <div style={{ textAlign: 'center' }}><span style={{ color: 'red' }}>{error}</span>
+        <p>{error == 'Verification failed complete your registration' ? <a onClick={() => { navigate(`/otp?id=${id}`) }} style={{ color: 'blue', cursor: 'pointer' }}>Click here to complete verificaction</a> : ''}</p>
+        <p>{error == 'Complete profile to login' ? <a onClick={() => { navigate(`/profileAdd?id=${id}`) }} style={{color:'blue',cursor:'pointer'}}>Click here to complete your profile</a> : ''}</p>
+      </div>
     </div>
   )
 }
