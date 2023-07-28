@@ -10,6 +10,7 @@ function Login({ role }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [id, setId] = useState('')
 
   const navigate = useNavigate();
 
@@ -37,7 +38,11 @@ function Login({ role }) {
       })
       navigate('/home')
 
-    } else {
+    } else if (data.status == 'Verification failed complete your registration') {
+      setId(data.user)
+      setError(data.status)
+    }
+    else {
       setError(data.status)
     }
   }
@@ -62,7 +67,8 @@ function Login({ role }) {
 
       navigate('/admin/home')
 
-    } else {
+    }
+    else {
       setError(data.status)
     }
   }
@@ -79,7 +85,7 @@ function Login({ role }) {
         <br></br>
         {role == 'user' ? <Link to={('/signUp')}><p style={{ textAlign: 'center' }}>SignUp</p></Link> : ''}
       </form>
-      <div style={{ textAlign: 'center' }}><span style={{ color: 'red' }}>{error}</span></div>
+      <div style={{ textAlign: 'center' }}><span style={{ color: 'red' }}>{error}</span><p>{error == 'Verification failed complete your registration' ? <a onClick={() => { navigate(`/otp?id=${id}`) }}>Click here to complete verificaction</a> : ''}</p></div>
     </div>
   )
 }
