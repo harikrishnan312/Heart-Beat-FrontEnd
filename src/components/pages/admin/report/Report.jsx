@@ -4,6 +4,7 @@ import Navbar from '../../../navbar/Navbar';
 import Footer from '../../../footer/Footer';
 import Table from '../../../table/Tables';
 import MyModal from '../../../modal/Modal';
+import './Report.css'
 
 
 function Report() {
@@ -72,7 +73,7 @@ function Report() {
     return (
         <div>
             <Navbar lists={['Dashboard', 'Newsfeed', 'Report', 'Logout']}></Navbar>
-            <div style={{ padding: '2em', overflow: 'auto', minHeight: '100vh' }}>{data ? <Table columns={columns} data={data}></Table> : ''}</div>
+            <div style={{ padding: '2em', overflow: 'auto', minHeight: '100vh' }} className='report'>{data.length>0 ? <Table columns={columns} data={data}></Table> : <h1>No Users Reported</h1>}</div>
             <MyModal
                 showModal={showModal}
                 closeModal={closeModal}
