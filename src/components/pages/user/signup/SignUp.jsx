@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom'
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [conFirmPassword, setConfirmPassword] = useState('');
+
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -13,21 +15,27 @@ function SignUp() {
 
   async function HandleSubmit(e) {
     e.preventDefault()
-    const res = await fetch( "https://vanchi.online/signUp", {
-      method: 'post',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        password
+    if (conFirmPassword == password) {
+
+      const res = await fetch("https://vanchi.online/signUp", {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
       })
-    })
-    const data = await res.json();
-    if (data.status == 'ok') {
-      navigate(`/otp?id=${data.user_id}`)
+      const data = await res.json();
+      if (data.status == 'ok') {
+        navigate(`/otp?id=${data.user_id}`)
+      } else {
+        setError(data.status)
+      }
     } else {
-      setError(data.status)
+      setError('Password doesn,t match')
+
     }
   }
   return (
@@ -38,7 +46,10 @@ function SignUp() {
         <label className='text'>Email:</label>
         <input onChange={(e) => { setEmail(e.target.value) }} type="email" value={email} required />
         <label className='text'>Password:</label>
-        <input onChange={(e) => { setPassword(e.target.value) }} type="password" value={password} pattern="[A-Za-z0-9]+" required />
+        <p style={{ color: 'grey' }}>:Must have Capital,Small letter,number and {8} digits </p>
+        <input onChange={(e) => { setPassword(e.target.value) }} type="password" value={password} pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required />
+        <label className='text'>Confirm Password:</label>
+        <input onChange={(e) => { setConfirmPassword(e.target.value) }} type="password" value={conFirmPassword} pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required />
         <div style={{ textAlign: 'center' }}><button type="submit">Sign Up</button></div>
         <br></br>
         <Link to={('/login')}><p style={{ textAlign: 'center' }}>SignIn</p></Link>
