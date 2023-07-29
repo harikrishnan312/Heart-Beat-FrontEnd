@@ -18,6 +18,7 @@ function Report() {
 
     const columns = [
         { Header: 'Name', accessor: 'userId.firstName' },
+        { Header: 'email', accessor: 'userId.email' },
         { Header: 'No.of users reported', accessor: 'count' },
         {
             Header: 'Actions',
