@@ -83,7 +83,7 @@
     display: flex;
     /* justify-content: center; */
     /* align-items: center; */
-    height: auto;
+    min-height:90vh ;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -139,6 +139,7 @@
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
 }
+
 .users-list li::-webkit-scrollbar {
     width: 6px;
 }
