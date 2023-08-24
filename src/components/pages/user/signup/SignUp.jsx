@@ -17,7 +17,7 @@ function SignUp() {
     e.preventDefault()
     if (conFirmPassword == password) {
 
-      const res = await fetch("https://vanchi.online/signUp", {
+      const res = await fetch("http://localhost:3000/signUp", {
         method: 'post',
         headers: {
           'Content-type': 'application/json'

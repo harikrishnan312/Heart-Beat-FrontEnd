@@ -28,7 +28,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const EndPoint = "https://vanchi.online";
+const EndPoint = "http://localhost:3000";
 let socket;
 
 function Home() {

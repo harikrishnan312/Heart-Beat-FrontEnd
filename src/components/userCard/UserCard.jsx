@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import io from "socket.io-client";
 import { useSelector } from 'react-redux'
 
-const EndPoint = "https://vanchi.online";
+const EndPoint = "http://localhost:3000";
 let socket;
 
 
@@ -74,7 +74,7 @@ function UserCard({ user, like, match, matches, update }) {
 
       cursor: 'pointer'
     }} onClick={() => { navigate(`/profile?id=${user._id}&user=${false}`) }}>
-      <img src={` https://vanchi.online/images/${user.image}`} alt="" style={{
+      <img src={`http://localhost:3000/images/${user.image}`} alt="" style={{
         borderRadius: '1em', height: '22em', width: '18em', position: 'absolute', zIndex: 1, objectFit: 'cover'
       }} />
       <div className="user-details">

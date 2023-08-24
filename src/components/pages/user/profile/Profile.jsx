@@ -306,7 +306,7 @@ function Profile() {
                         <div className="col-md-6 custom-upload-button" >
                             <div>
                                 {dp ? (
-                                    <div style={{ textAlign: 'center', padding: '1' }}><img className='preview img-fluid' src={selectedImage ? URL.createObjectURL(selectedImage) :dp? ` https://vanchi.online/images/${dp}`:''} alt="Image Preview" style={{
+                                    <div style={{ textAlign: 'center', padding: '1' }}><img className='preview img-fluid' src={selectedImage ? URL.createObjectURL(selectedImage) : dp ? `http://localhost:3000/images/${dp}`:''} alt="Image Preview" style={{
                                         width: '25em', height: '20em', borderRadius: '.5em', objectFit: 'cover'
                                     }} />
                                         {editing ? <div style={{ textAlign: 'center' }} onClick={handleIconClick}><AiFillCamera size={30} color='#e94057' /></div> : ''}
@@ -323,7 +323,7 @@ function Profile() {
                                     {images ? images.map((image, index) => (
                                         <div key={index} className="image-container">
                                             {image ?
-                                                <img className='imgs' style={{ borderRadius: '1em' }} src={` https://vanchi.online/images/${image}`} alt={`Image ${index}`} /> : ''
+                                                <img className='imgs' style={{ borderRadius: '1em' }} src={`http://localhost:3000/images/${image}`} alt={`Image ${index}`} /> : ''
                                             }
                                             <input ref={filesEditRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={HandleEditImages} />
 

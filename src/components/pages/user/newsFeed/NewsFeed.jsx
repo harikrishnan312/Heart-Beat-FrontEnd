@@ -181,12 +181,12 @@ function NewsFeed({ admin }) {
                     {currentPosts.map((posts, index) => (
                         <div key={index} className="news-item">
                             <div className="news-header">
-                                {posts.user[0].image?<img src={`https://vanchi.online/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />:''}
+                                {posts.user[0].image ? <img src={`http://localhost:3000/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />:''}
                                 <div>
                                     <p>{posts.user[0].firstName}</p>
                                 </div>
                             </div>
-                            <img src={` https://vanchi.online/images/${posts.image}`} alt="News Image" className="news-image" />
+                            <img src={`http://localhost:3000/images/${posts.image}`} alt="News Image" className="news-image" />
                             <p style={{ color: 'grey' }}>{posts.caption}</p>
                             <br />
                             {admin ? <MdDelete style={{ marginLeft: '1em' }} size={30} color='red' onClick={() => { openModals(posts._id) }}></MdDelete> :

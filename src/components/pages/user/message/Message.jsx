@@ -12,7 +12,7 @@ import { MdDelete } from 'react-icons/md'
 import { setNotification } from "../../../../redux/notification";
 
 
-const EndPoint = "https://vanchi.online";
+const EndPoint = "http://localhost:3000";
 let socket, selectedchatcompare, datas, chatid;
 
 const Message = () => {
@@ -276,7 +276,7 @@ const Message = () => {
             {selectedUser ? (
               <div>
                 <div style={{ display: "flex" }}>
-                  <img src={` https://vanchi.online/images/${image}`} alt="Avatar" className="author-avatar" onClick={() => {
+                  <img src={`http://localhost:3000/images/${image}`} alt="Avatar" className="author-avatar" onClick={() => {
                     navigate(`/profile?id=${userId}&user=${false}`)
                   }} />
                   <h2 style={{ color: "grey", fontWeight: 'bold' }}>{selectedUser}</h2>

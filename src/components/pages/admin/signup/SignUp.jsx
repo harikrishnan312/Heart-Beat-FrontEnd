@@ -13,7 +13,7 @@ function SignUp() {
 
   async function HandleSubmit(e) {
     e.preventDefault()
-    const res = await fetch('https://vanchi.online/admin/signUp', {
+    const res = await fetch('http://localhost:3000/admin/signUp', {
       method: 'post',
       headers: {
         'Content-type': 'application/json'
