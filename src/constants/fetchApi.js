@@ -1,6 +1,6 @@
 // api.js
-// const BASE_URL = 'https://heartbeat-e56y.onrender.com'
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = 'https://heart-beat-backend.onrender.com'
+// const BASE_URL = "http://localhost:3000"
 // const BASE_URL = 'https://vanchi.online'
 
 
