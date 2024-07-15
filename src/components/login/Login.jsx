@@ -84,7 +84,7 @@ function Login({ role }) {
         <label className='text'>Email:</label>
         <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} required />
         <label className='text'>Password:</label>
-        <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} pattern="[A-Za-z0-9]+" required />
+        <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}  required />
         <button type="submit">Login</button>
         <br></br>
         {role == 'user' ? <Link to={('/signUp')}><p style={{ textAlign: 'center' }}>SignUp</p></Link> : ''}
