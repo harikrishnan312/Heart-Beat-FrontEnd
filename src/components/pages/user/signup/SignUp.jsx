@@ -17,7 +17,7 @@ function SignUp() {
     e.preventDefault()
     if (conFirmPassword == password) {
 
-      const res = await fetch("http://heart-beat-backend.onrender.com/signUp", {
+      const res = await fetch("https://heart-beat-backend.onrender.com/signUp", {
         method: 'post',
         headers: {
           'Content-type': 'application/json'
