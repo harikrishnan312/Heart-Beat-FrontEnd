@@ -17,7 +17,7 @@ function NewsFeed({ admin }) {
     const [liked, setLiked] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [value, setValue] = useState();
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
 
 
@@ -143,11 +143,11 @@ function NewsFeed({ admin }) {
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
 
     return (
-      
+
         <div>
-            {admin ? <Navbar lists={['Dashboard', 'Newsfeed','Report', 'Logout']}></Navbar>
+            {admin ? <Navbar lists={['Dashboard', 'Newsfeed', 'Report', 'Logout']}></Navbar>
                 : <Navbar lists={['Discover', 'Matches', 'Likes', 'Newsfeed', 'Messages']} user='true'></Navbar>
-}
+            }
             {admin ? '' :
                 <div style={{}} className='newsField'>
                     <button onClick={openModal} className='create-post-button'>Create Post</button>
@@ -173,37 +173,37 @@ function NewsFeed({ admin }) {
                     )}
                 </div>
             }
-            {loading?posts?
-            <div className='postsField'>
-                <div className="news-field">
-                    {admin ? <h2 style={{ fontWeight: 'bold' }}>All posts...</h2> : <h2 style={{ fontWeight: 'bold' }}>Engaging Social Posts from Your Matches..</h2>}
-                    {posts.length === 0 ? <p style={{ fontSize: '2em' }}>Sorry no posts....</p> : ''}
-                    {currentPosts.map((posts, index) => (
-                        <div key={index} className="news-item">
-                            <div className="news-header">
-                                {posts.user[0].image ? <img src={`http://localhost:3000/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" />:''}
-                                <div>
-                                    <p>{posts.user[0].firstName}</p>
+            {loading ? posts ?
+                <div className='postsField'>
+                    <div className="news-field">
+                        {admin ? <h2 style={{ fontWeight: 'bold' }}>All posts...</h2> : <h2 style={{ fontWeight: 'bold' }}>Engaging Social Posts from Your Matches..</h2>}
+                        {posts.length === 0 ? <p style={{ fontSize: '2em' }}>Sorry no posts....</p> : ''}
+                        {currentPosts.map((posts, index) => (
+                            <div key={index} className="news-item">
+                                <div className="news-header">
+                                    {posts.user[0].image ? <img src={`http://localhost:3000/images/${posts.user[0].image}`} alt="Author Avatar" className="author-avatar" /> : ''}
+                                    <div>
+                                        <p>{posts.user[0].firstName}</p>
+                                    </div>
                                 </div>
+                                <img src={`http://localhost:3000/images/${posts.image}`} alt="News Image" className="news-image" />
+                                <p style={{ color: 'grey' }}>{posts.caption}</p>
+                                <br />
+                                {admin ? <MdDelete style={{ marginLeft: '1em' }} size={30} color='red' onClick={() => { openModals(posts._id) }}></MdDelete> :
+                                    <><AiFillLike style={{ marginLeft: '1em' }} size={30} color={liked[index] ? 'blue' : 'grey'} onClick={() => { handleLike(posts._id, index) }}></AiFillLike>
+                                        <span>{posts.likes}</span></>
+                                }
+                                <br /><br />
                             </div>
-                            <img src={`http://localhost:3000/images/${posts.image}`} alt="News Image" className="news-image" />
-                            <p style={{ color: 'grey' }}>{posts.caption}</p>
-                            <br />
-                            {admin ? <MdDelete style={{ marginLeft: '1em' }} size={30} color='red' onClick={() => { openModals(posts._id) }}></MdDelete> :
-                                <><AiFillLike style={{ marginLeft: '1em' }} size={30} color={liked[index] ? 'blue' : 'grey'} onClick={() => { handleLike(posts._id, index) }}></AiFillLike>
-                                    <span>{posts.likes}</span></>
-                            }
-                            <br /><br />
-                        </div>
 
-))}
+                        ))}
+                    </div>
+
                 </div>
-                
-            </div>
 
-:'':''}
-{/* Pagination */}
-<div className="pagination" style={{ padding: '3em' }}>
+                : <div style={{ height: "100vh" }}></div> : <div style={{ height: "100vh" }}></div>}
+            {/* Pagination */}
+            <div className="pagination" style={{ padding: '3em' }}>
                 <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}

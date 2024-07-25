@@ -310,7 +310,7 @@ const Message = () => {
             )}
           </div>
         </div>
-        : ''}
+        : <div style={{ height: "100vh" }}></div>}
       <Footer></Footer>
     </>
   );
