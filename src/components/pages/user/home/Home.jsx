@@ -28,7 +28,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const EndPoint = "http://localhost:3000";
+const EndPoint = "https://heart-beat-backend.onrender.com";
 let socket;
 
 function Home() {
@@ -66,7 +66,7 @@ function Home() {
   useEffect(() => {
     socket = io(EndPoint);
 
-    user?socket.emit("set up", user._id):''
+    user ? socket.emit("set up", user._id) : ''
   }, [])
 
   useEffect(() => {

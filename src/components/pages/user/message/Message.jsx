@@ -12,7 +12,7 @@ import { MdDelete } from 'react-icons/md'
 import { setNotification } from "../../../../redux/notification";
 
 
-const EndPoint = "http://localhost:3000";
+const EndPoint = "https://heart-beat-backend.onrender.com";
 let socket, selectedchatcompare, datas, chatid;
 
 const Message = () => {
